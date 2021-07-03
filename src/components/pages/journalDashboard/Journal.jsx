@@ -26,7 +26,7 @@ const Journal = () => {
                         <div className="prayer-flex">
                             <Card key={_id} _id={_id} title={title} description={description} postedBy={postedBy} />
                         </div>
-                    )): <p>No Prayers Found, Sorry!</p>}
+                    )): <p>No prayer entry found, sorry!</p>}
                 </div>
             </PrayRequestSection>
         </JournalContainer>

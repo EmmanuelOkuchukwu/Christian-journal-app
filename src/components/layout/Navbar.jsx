@@ -6,7 +6,7 @@ function Navbar({ currentUser }) {
     return (
         <NavbarContainer>
             <NavContentWrapper>
-                <h1>Christian's Journal</h1>
+                <h1>Journalise</h1>
                 <ul>
                     {!currentUser ? <li><Link className="link" to="">Sign Up</Link></li> : <li><span className="text-info">Signed in as:</span><Link className="link" to="">{currentUser?.user?.name}</Link></li>}
                     <li><Link className="link" to="">About</Link></li>
