@@ -6,6 +6,7 @@ const Card = ({ _id, title, description, postedBy }) => {
         <CardContainer key={_id}>
             <CardHeader>
                 <h2>{title}</h2>
+                <i className="far fa-trash-alt" />
             </CardHeader>
             <CardBody>
                 <div className="description">
@@ -25,11 +26,18 @@ const CardContainer = styled.main`
   padding: 0 10px;
   border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
   border-radius: 4px;
+  margin: 10px 0;
 `;
 
 const CardHeader = styled.main`
   height: 50px;
   border-bottom: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .fa-trash-alt {
+    cursor: pointer;
+  }
 `;
 
 const CardBody = styled.main`

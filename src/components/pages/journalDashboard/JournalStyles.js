@@ -16,5 +16,6 @@ export const PrayRequestSection = styled.section`
     margin: 10px auto;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 `;

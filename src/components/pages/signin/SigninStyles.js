@@ -18,6 +18,7 @@ export const LoginBackground = styled.div`
 export const LoginForm = styled.form`
   width: 100%;
   padding: 35px;
+  color: ${props => props.theme.white};
   .input-field {
     width: 100%;
     margin: 10px 0;

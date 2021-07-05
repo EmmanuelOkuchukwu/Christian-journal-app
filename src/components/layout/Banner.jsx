@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AuthService } from '../../services/authService';
 import {Link, useHistory} from 'react-router-dom';
+import Modal from "./Modal";
 
 const Banner = () => {
+    const [show, setShow] = useState(false);
     const currentUser = AuthService.getCurrentUser();
+    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
     const history = useHistory();
     const handleSignout = () => {
         AuthService.onSignout()
@@ -22,7 +26,8 @@ const Banner = () => {
                 <MiniNav>
                     <ul>
                         <li><Link className="sm-nav-link" to="">Profile</Link></li>
-                        <li><Link className="sm-nav-link" to="">Add Request</Link></li>
+                        <li><Link className="sm-nav-link" to="#" onClick={handleShow}>Add Request</Link></li>
+                        <Modal title="Add Prayer Request" show={show} handleShow={handleShow} handleClose={handleClose} />
                         <li><Link className="sm-nav-link" to="" onClick={handleSignout}>Sign Out</Link></li>
                     </ul>
                 </MiniNav>
@@ -79,4 +84,4 @@ const MiniNav = styled.nav`
       background-color: rgba(var(--ca6, 219, 219, 219), 1);
     }
   }
-`
+`;
