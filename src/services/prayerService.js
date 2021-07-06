@@ -27,7 +27,15 @@ function onAddPrayersRequest(formData) {
         })
 }
 
-function onDeletePrayerRequest() {}
+function onDeletePrayerRequest(id) {
+    return axios.delete(`/deleteprayerreq/${id}`, {
+        headers: AuthHeader()
+    })
+        .then((response) => {
+            return response.data;
+        })
+        .catch(error => console.log(error));
+}
 
 export const PrayerService = {
     getMyPrayers,

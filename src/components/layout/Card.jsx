@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Card = ({ _id, title, description, postedBy }) => {
+const Card = ({ _id, title, description, postedBy, handleDelete }) => {
     return (
         <CardContainer key={_id}>
             <CardHeader>
                 <h2>{title}</h2>
-                <i className="far fa-trash-alt" />
+                <i className="far fa-trash-alt" onClick={() => handleDelete(_id)} />
             </CardHeader>
             <CardBody>
                 <div className="description">

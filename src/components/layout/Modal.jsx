@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Field, ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -6,47 +6,46 @@ import { PrayerService } from '../../services/prayerService';
 import { useAlert } from 'react-alert';
 
 const Modal = props => {
+    const initialValues = {
+        title: '',
+        description: ''
+    }
+    const [prayers, setPrayers] = useState(initialValues);
     const alert = useAlert();
-    const validationSchema = new Yup.object({
-        title: Yup.string().required('Required'),
-        description: Yup.string().required('Required')
-    })
+    const handleInputChange = evt => {
+        const { name, value } = evt.target;
+        setPrayers({ ...prayers, [name]: value });
+    }
+    const handleSubmit = () => {
+        const formData = {
+            title: prayers.title,
+            description: prayers.description
+        }
+        PrayerService.onAddPrayersRequest(formData)
+            .then((res) => {
+                alert.success('Successfully added Prayer Request to your prayer arsenal!!');
+                console.log(res);
+                props.setShow(false);
+            })
+            .catch(error => console.log(error));
+    }
 
     const showHideClassName = props.show ? 'modal display-block' : 'modal display-none';
+
     return (
         <StyledModal>
             <div className={showHideClassName}>
                 <div className="main-modal">
                     <div className="background-form">
-                        <Formik
-                            initialValues={{ title: '', description: '' }}
-                            onSubmit={values => {
-                                const formData = {
-                                    title: values.title,
-                                    description: values.description
-                                }
-                                PrayerService.onAddPrayersRequest(formData)
-                                    .then((res) => {
-                                        alert.success('Successfully added Prayer Request to your prayer arsenal!!')
-                                        console.log(res)
-                                    })
-                            }}
-                            validationSchema={validationSchema}
-                        >
-                            {({ handleChange, touched, errors, handleSubmit, values }) => (
-                                <form className="prayer-request-form" onSubmit={handleSubmit}>
-                                    <div className="flex-title">
-                                        <h2>{props.title}</h2>
-                                        <i className="fas fa-times-circle" onClick={props.handleClose} />
-                                    </div>
-                                    <Field type="text" className={"input-field" + (errors.title && touched.title ? ' is-invalid' : '')} name="title" value={values.title} onChange={handleChange} placeholder="Enter your Title" /><br />
-                                    <ErrorMessage name="title" component="div" className="invalid-feedback" />
-                                    <Field type="text" className={`input-field ${errors.description && touched.description}`} name="description" value={values.description} onChange={handleChange} placeholder="Enter your Description" /><br />
-                                    <ErrorMessage name="description" component="div" className="invalid-feedback" />
-                                    <button type="submit">Submit Request</button>
-                                </form>
-                            )}
-                        </Formik>
+                        <form className="prayer-request-form" onSubmit={handleSubmit}>
+                        <div className="flex-title">
+                            <h2>{props.title}</h2>
+                            <i className="fas fa-times-circle" onClick={props.handleClose} />
+                        </div>
+                        <input type="text" className='input-field' name="title" value={prayers.title} onChange={handleInputChange} placeholder="Enter your Title" /><br />
+                        <input type="text" className='input-field' name="description" value={prayers.description} onChange={handleInputChange} placeholder="Enter your Description" /><br />
+                        <input type="submit" value="Submit Request" />
+                    </form>
                     </div>
                     <button type="submit" className="close-btn" onClick={props.handleClose}>Close Form</button>
                 </div>

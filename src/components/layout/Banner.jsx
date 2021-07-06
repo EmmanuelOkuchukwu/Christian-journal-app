@@ -27,7 +27,7 @@ const Banner = () => {
                     <ul>
                         <li><Link className="sm-nav-link" to="">Profile</Link></li>
                         <li><Link className="sm-nav-link" to="#" onClick={handleShow}>Add Request</Link></li>
-                        <Modal title="Add Prayer Request" show={show} handleShow={handleShow} handleClose={handleClose} />
+                        <Modal title="Add Prayer Request" show={show} setShow={setShow} handleShow={handleShow} handleClose={handleClose} />
                         <li><Link className="sm-nav-link" to="" onClick={handleSignout}>Sign Out</Link></li>
                     </ul>
                 </MiniNav>
